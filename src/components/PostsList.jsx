@@ -1,12 +1,35 @@
+import { useState } from "react";
+import NewPost from "./NewPost";
 import Post from "./Post";
 import classes from "./PostsList.module.css";
+import Modal from "./Modal";
 
 const PostsList = () => {
+    const [enteredDesc, setEnteredDesc] = useState("");
+    const [enteredAuthor, setEnteredAuthor] = useState("");
+
+    const changeDescHandler = (event) => {
+        setEnteredDesc(event.target.value);
+    };
+
+    const changeAuthorHandler = (event) => {
+        setEnteredAuthor(event.target.value);
+    };
+
     return (
-        <ul className={classes.posts}>
-            <Post author="Mate" desc="Post 1" />
-            <Post author="Mate" desc="Post 2" />
-        </ul>
+        <>
+            <Modal>
+                <NewPost
+                    onDescChange={changeDescHandler}
+                    onAuthorChange={changeAuthorHandler}
+                />
+            </Modal>
+
+            <ul className={classes.posts}>
+                <Post author={enteredAuthor} desc={enteredDesc} />
+                <Post author="Mate" desc="Post 2" />
+            </ul>
+        </>
     );
 };
 
