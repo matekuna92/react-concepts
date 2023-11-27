@@ -4,7 +4,7 @@ import Post from "./Post";
 import classes from "./PostsList.module.css";
 import Modal from "./Modal";
 
-const PostsList = ({ isPosting, onShowPosts }) => {
+const PostsList = ({ isPosting, onShowPosts, onCancel }) => {
     const [enteredDesc, setEnteredDesc] = useState("");
     const [enteredAuthor, setEnteredAuthor] = useState("");
 
@@ -23,6 +23,7 @@ const PostsList = ({ isPosting, onShowPosts }) => {
 					<NewPost
 						onDescChange={changeDescHandler}
 						onAuthorChange={changeAuthorHandler}
+                        onCancel={onShowPosts}
 					/>
 				</Modal>
 			)}
