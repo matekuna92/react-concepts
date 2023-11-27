@@ -1,15 +1,14 @@
 import classes from "./Modal.module.css";
 
 const Modal = ( { children, onHideBackdrop }) => {
-
-   return (
+	return (
 		<>
-			<div className={classes.backdrop} onClick={onHideBackdrop}/>
+			<div className={classes.backdrop} onClick={onHideBackdrop} />
 			<dialog open className={classes.modal}>
 				{children}
 			</dialog>
 		</>
-   );
+	);
 }
 
 export default Modal;
