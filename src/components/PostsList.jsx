@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewPost from "./NewPost";
 import Post from "./Post";
 import classes from "./PostsList.module.css";
@@ -26,12 +26,30 @@ const PostsList = ({ isPosting, onShowPosts, onCancel, onAddNewPost }) => {
             author: enteredAuthor
         }
 
-       // setPosts([...posts, formData]); // directly manipulating state is a bad practise
+	   fetch("http://localhost:8080/posts", {
+           method: "POST",
+           body: JSON.stringify(formData),
+           headers: {
+               "Content-Type": "application/json",
+           },
+       });
+
+	   // setPosts([...posts, formData]); // directly manipulating state is a bad practise
        setPosts((prevState) => [...prevState, formData]);
        onCancel();
 
         console.log('form data: ', formData);
     }
+
+	useEffect(() => {
+        async function fetchPosts() {
+            const response = await fetch("http://localhost:8080/posts");
+            const responseData = await response.json();
+			setPosts(responseData.posts);	// backend returns a response called "posts": res.json({ posts: storedPosts });
+        }
+
+		fetchPosts();
+    }, []);
 
     return (
 		<>
