@@ -1,0 +1,5 @@
+{
+    "posts": [
+        { "body": "This is the first post", "author": "Mate", "id": "1" }
+    ]
+}
