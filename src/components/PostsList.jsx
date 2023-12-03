@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import NewPost from "./NewPost";
+import NewPost from "../routes/NewPost";
 import Post from "./Post";
 import classes from "./PostsList.module.css";
 import Modal from "./Modal";
 
-const PostsList = ({ isPosting, onShowPosts, onCancel, onAddNewPost }) => {
+const PostsList = ({ onCancel }) => {
     const [enteredDesc, setEnteredDesc] = useState("");
     const [enteredAuthor, setEnteredAuthor] = useState("");
     const [posts, setPosts] = useState([]);
@@ -56,17 +56,6 @@ const PostsList = ({ isPosting, onShowPosts, onCancel, onAddNewPost }) => {
 
     return (
         <>
-            {isPosting && (
-                <Modal onHideBackdrop={onShowPosts}>
-                    <NewPost
-                        onDescChange={changeDescHandler}
-                        onAuthorChange={changeAuthorHandler}
-                        onCancel={onShowPosts}
-                        onFormSubmit={formSubmitHandler}
-                    />
-                </Modal>
-            )}
-
             {!isLoading && posts.length > 0 && (
                 <ul className={classes.posts}>
                     {posts.map((post) => (
