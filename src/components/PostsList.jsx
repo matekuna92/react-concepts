@@ -1,48 +1,12 @@
-import { useEffect, useState } from "react";
-import NewPost from "../routes/NewPost";
+import {useEffect, useState} from "react";
 import Post from "./Post";
 import classes from "./PostsList.module.css";
-import Modal from "./Modal";
 
 const PostsList = ({ onCancel }) => {
-    const [enteredDesc, setEnteredDesc] = useState("");
-    const [enteredAuthor, setEnteredAuthor] = useState("");
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const changeDescHandler = (event) => {
-        setEnteredDesc(event.target.value);
-    };
-
-    const changeAuthorHandler = (event) => {
-        setEnteredAuthor(event.target.value);
-    };
-
-    const formSubmitHandler = (event) => {
-        event.preventDefault();
-        
-        const formData = {
-            id: posts.length + 1,
-            desc: enteredDesc,
-            author: enteredAuthor
-        }
-
-	   fetch("http://localhost:8080/posts", {
-           method: "POST",
-           body: JSON.stringify(formData),
-           headers: {
-               "Content-Type": "application/json",
-           },
-       });
-
-	   // setPosts([...posts, formData]); // directly manipulating state is a bad practise
-       setPosts((prevState) => [...prevState, formData]);
-       onCancel();
-
-        console.log('form data: ', formData);
-    }
-
-	useEffect(() => {
+    useEffect(() => {
         async function fetchPosts() {
             setIsLoading(true);
             const response = await fetch("http://localhost:8080/posts");
@@ -51,8 +15,20 @@ const PostsList = ({ onCancel }) => {
             setIsLoading(false);
         }
 
-		fetchPosts();
+        fetchPosts();
     }, []);
+
+    const addPostHandler = (postData) => {
+        fetch("http://localhost:8080/posts", {
+            method: "POST",
+            body: JSON.stringify(postData),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        setPosts((prevState) => [...prevState, postData]);
+    }
 
     return (
         <>
@@ -75,6 +51,6 @@ const PostsList = ({ onCancel }) => {
             {isLoading && <p>Loading posts...</p>}
         </>
     );
-};
+}
 
 export default PostsList;
