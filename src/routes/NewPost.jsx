@@ -1,52 +1,18 @@
-import {Link} from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import Modal from "../components/Modal";
 import classes from "./NewPost.module.css";
-import { useState } from "react";
 
-const NewPost = ({ onFormSubmit, onCancel }) => {
-    const [enteredDesc, setEnteredDesc] = useState("");
-    const [enteredAuthor, setEnteredAuthor] = useState("");
-
-    const changeDescHandler = (event) => {
-        setEnteredDesc(event.target.value);
-    };
-
-    const changeAuthorHandler = (event) => {
-        setEnteredAuthor(event.target.value);
-    };
-
-    const formSubmitHandler = (event) => {
-        event.preventDefault();
-
-        const formData = {
-            desc: enteredDesc,
-            author: enteredAuthor
-        }
-
-        onFormSubmit(formData);
-        onCancel();
-    }
-
+const NewPost = () => {
     return (
         <Modal>
-            <form className={classes.form} onSubmit={formSubmitHandler}>
+            <Form method="post" className={classes.form}>
                 <p>
                     <label htmlFor="body">Desc</label>
-                    <textarea
-                        id="body"
-                        required
-                        rows={3}
-                        onChange={changeDescHandler}
-                    />
+                    <textarea id="body" required rows={3} name="desc" />
                 </p>
                 <p>
                     <label htmlFor="author">Author</label>
-                    <input
-                        type="text"
-                        id="author"
-                        required
-                        onChange={changeAuthorHandler}
-                    />
+                    <input type="text" id="author" required name="author" />
                 </p>
                 <p className={classes.actions}>
                     <button type="submit">Submit</button>
@@ -54,9 +20,27 @@ const NewPost = ({ onFormSubmit, onCancel }) => {
                         Cancel
                     </Link>
                 </p>
-            </form>
+            </Form>
         </Modal>
     );
-}
+};
 
 export default NewPost;
+
+// data is automatically passed by React Router, it is not the data of the form. It is an object, which has a request property
+export const action = async (data) => {
+    const formData = await data.request.formData();
+    // formDate.get('desc') would access the element in form with name="desc"
+    const postData = Object.fromEntries(formData);      // { body: '...', author: '...' }
+    
+    await fetch("http://localhost:8080/posts", {
+        method: "POST",
+        body: JSON.stringify(postData),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    // redirect generates a response object which is returned by this action
+    return redirect("/");
+}
