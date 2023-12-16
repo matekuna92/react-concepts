@@ -1,1 +1,6 @@
-{"posts":[{"desc":"bb","author":"bb","id":"0.874998441162391"},{"body":"This is the first post","author":"Mate","id":"1"}]}
+{
+    "posts": [
+        { "desc": "qwe", "author": "qwe", "id": "0.004733750867481179" },
+        { "desc": "rrr", "author": "rrr", "id": "0.5920666039655875" }
+    ]
+}

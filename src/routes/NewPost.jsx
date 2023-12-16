@@ -1,4 +1,4 @@
-import { Form, Link, redirect } from "react-router-dom";
+import {Form, Link, redirect} from "react-router-dom";
 import Modal from "../components/Modal";
 import classes from "./NewPost.module.css";
 
@@ -8,11 +8,11 @@ const NewPost = () => {
             <Form method="post" className={classes.form}>
                 <p>
                     <label htmlFor="body">Desc</label>
-                    <textarea id="body" required rows={3} name="desc" />
+                    <textarea id="body" required rows={3} name="desc"/>
                 </p>
                 <p>
                     <label htmlFor="author">Author</label>
-                    <input type="text" id="author" required name="author" />
+                    <input type="text" id="author" required name="author"/>
                 </p>
                 <p className={classes.actions}>
                     <button type="submit">Submit</button>
@@ -30,6 +30,22 @@ export default NewPost;
 // data is automatically passed by React Router, it is not the data of the form. It is an object, which has a request property
 export const action = async (data) => {
     const formData = await data.request.formData();
+    console.log("formData: ", formData);
+
+    fetch("http://localhost:8080/posts", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    return redirect("/");
+}
+
+/*
+export const action = async (data) => {
+    const formData = await data.request.formData();
     // formDate.get('desc') would access the element in form with name="desc"
     const postData = Object.fromEntries(formData);      // { body: '...', author: '...' }
     
@@ -43,4 +59,4 @@ export const action = async (data) => {
 
     // redirect generates a response object which is returned by this action
     return redirect("/");
-}
+}*/
