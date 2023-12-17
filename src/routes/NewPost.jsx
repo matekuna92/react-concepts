@@ -30,11 +30,12 @@ export default NewPost;
 // data is automatically passed by React Router, it is not the data of the form. It is an object, which has a request property
 export const action = async (data) => {
     const formData = await data.request.formData();
-    console.log("formData: ", formData);
+    const postData = Object.fromEntries(formData);
+    console.log("postData: ", postData);
 
     fetch("http://localhost:8080/posts", {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(postData),
         headers: {
             "Content-Type": "application/json"
         }
