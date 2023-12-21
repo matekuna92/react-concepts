@@ -33,15 +33,30 @@ export const action = async (data) => {
     const postData = Object.fromEntries(formData);
     console.log("postData: ", postData);
 
-    fetch("http://localhost:8080/posts", {
+    const newData = {
+        id: Math.random(),
+        ...postData
+    }
+
+    console.log("newData: ", newData);
+
+    const response = await fetch("http://localhost:8080/posts", {
         method: "POST",
-        body: JSON.stringify(postData),
+        body: JSON.stringify(newData),
         headers: {
             "Content-Type": "application/json"
         }
     });
 
-    return redirect("/");
+    if (response.ok) {
+        return redirect("/");
+    } else {
+        // if the response is not successful, return an error message
+        return {
+            error: "Failed to create post."
+        };
+    }
+
 }
 
 /*
