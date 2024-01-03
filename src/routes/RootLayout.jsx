@@ -1,12 +1,15 @@
 import { Outlet } from "react-router-dom";
 import MainHeader from "../components/MainHeader";
+import { AuthContextProvider } from "../context/AuthContext";
 
 const RootLayout = () => {
     // nested routes render their content in Outlet
     return (
         <>
-            <MainHeader />
-            <Outlet />
+            <AuthContextProvider>
+                <MainHeader />
+                <Outlet />
+            </AuthContextProvider>
         </>
     );
 };

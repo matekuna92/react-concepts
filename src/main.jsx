@@ -9,6 +9,7 @@ import Posts from "./routes/Posts";
 import "./index.css";
 import NewPost from "./routes/NewPost";
 import RootLayout from "./routes/RootLayout";
+import LoginForm from "./routes/LoginForm.jsx";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +26,8 @@ const router = createBrowserRouter([
                         element: <NewPost />,
                         action: newPostsAction,
                     },
-                    { path: "/:id", element: <PostDetails />, loader: postDetailsLoader }
+                    { path: "/:id", element: <PostDetails />, loader: postDetailsLoader },
+                    { path: "/login", element: <LoginForm /> }
                 ],
             },
         ],
