@@ -5,11 +5,16 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const MainHeader = ({ onAddPost }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const userContext = useContext(AuthContext);
-
+    let { isLoggedIn } = userContext;
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(isLoggedIn);
+    
     const handleLogin = () => {
         console.log("userContext:", userContext);
+        console.log("isUserLoggedIn: ", isUserLoggedIn);
+        setIsUserLoggedIn(!isUserLoggedIn);
+        console.log("userContext after handlelogin:", userContext);
+        setIsUserLoggedIn("isUserLoggedIn after: ", isUserLoggedIn);
     };
 
     return (

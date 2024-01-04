@@ -40,7 +40,7 @@ export const action = async (data) => {
 
     console.log("newData: ", newData);
 
-    const response = await fetch("http://localhost:8080/posts", {
+    const response = await fetch("http://localhost:8081/posts", {
         method: "POST",
         body: JSON.stringify(newData),
         headers: {
@@ -65,7 +65,7 @@ export const action = async (data) => {
     // formDate.get('desc') would access the element in form with name="desc"
     const postData = Object.fromEntries(formData);      // { body: '...', author: '...' }
     
-    await fetch("http://localhost:8080/posts", {
+    await fetch("http://localhost:8081/posts", {
         method: "POST",
         body: JSON.stringify(postData),
         headers: {

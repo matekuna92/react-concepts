@@ -40,4 +40,4 @@ app.post("/posts", async (req, res) => {
     res.status(201).json({ message: "Stored new post.", post: newPost });
 });
 
-app.listen(8080);
+app.listen(8081);
