@@ -5,11 +5,11 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const MainHeader = ({ onAddPost }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const userContext = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
+    let { isLoggedIn } = authContext;
 
     const handleLogin = () => {
-        console.log("userContext:", userContext);
+        console.log("authContext:", authContext);
     };
 
     return (
