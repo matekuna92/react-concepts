@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { loader as postsLoader } from "./routes/Posts";
 import { action as newPostsAction } from "./routes/NewPost";
 import PostDetails, { loader as postDetailsLoader } from "./routes/PostDetails";
+import { action as loginFormAction } from "./routes/LoginForm";
 
 import Posts from "./routes/Posts";
 import "./index.css";
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
                         action: newPostsAction,
                     },
                     { path: "/:id", element: <PostDetails />, loader: postDetailsLoader },
-                    { path: "/login", element: <LoginForm /> }
+                    { path: "/login", element: <LoginForm />, action: loginFormAction }
                 ],
             },
         ],

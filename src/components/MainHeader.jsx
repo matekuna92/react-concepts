@@ -9,7 +9,11 @@ const MainHeader = ({ onAddPost }) => {
     let { isLoggedIn } = authContext;
 
     const handleLogin = () => {
-        console.log("authContext:", authContext);
+        console.log("userContext:", userContext);
+        console.log("isUserLoggedIn: ", isUserLoggedIn);
+        setIsUserLoggedIn(!isUserLoggedIn);
+        console.log("userContext after handlelogin:", userContext);
+        setIsUserLoggedIn("isUserLoggedIn after: ", isUserLoggedIn);
     };
 
     return (

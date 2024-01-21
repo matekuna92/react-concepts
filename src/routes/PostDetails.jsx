@@ -23,7 +23,7 @@ export const loader = async (data) => {
     const id = data.params.id;
     console.log("params id:", id);
 
-    const response = await fetch(`http://localhost:8080/posts/${id}`);
+    const response = await fetch(`http://localhost:8081/posts/${id}`);
     const responseData = await response.json();
 
     console.log("responseData: ", responseData);

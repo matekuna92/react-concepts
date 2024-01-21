@@ -1,4 +1,4 @@
-import {Form} from "react-router-dom";
+import {Form, redirect} from "react-router-dom";
 import classes from "./NewPost.module.css";
 import Modal from "../components/Modal.jsx";
 
@@ -24,3 +24,8 @@ const LoginForm = () => {
 }
 
 export default LoginForm;
+
+export const action = async (data) => {
+    console.log("Loginform action");
+    return redirect("/");
+}
