@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const { getStoredPosts, storePosts } = require("./data/posts");
+import { getStoredPosts, storePosts } from "./data/posts";
+import { getRegisteredUsers } from './data/users';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// posts
 app.get("/posts", async (req, res) => {
     const storedPosts = await getStoredPosts();
     await new Promise((resolve, reject) => setTimeout(() => resolve(), 1500));
@@ -39,5 +41,17 @@ app.post("/posts", async (req, res) => {
     await storePosts(updatedPosts);
     res.status(201).json({ message: "Stored new post.", post: newPost });
 });
+
+// users
+app.get('/users', async (req, req) => {
+    const storedUsers = await getRegisteredUsers();
+    res.json({ users: storedUsers });
+})
+
+app.get('/user/:id', async (req, res) => {
+    const storedUsers = await getRegisteredUsers();
+    const user = storedUsers.find(user => user.id === req.params.id);
+    res.json({ user });
+})
 
 app.listen(8081);
