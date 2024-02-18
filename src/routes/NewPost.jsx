@@ -59,21 +59,3 @@ export const action = async (data) => {
         };
     }
 };
-
-/*
-export const action = async (data) => {
-    const formData = await data.request.formData();
-    // formDate.get('desc') would access the element in form with name="desc"
-    const postData = Object.fromEntries(formData);      // { body: '...', author: '...' }
-    
-    await fetch("http://localhost:8080/posts", {
-        method: "POST",
-        body: JSON.stringify(postData),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-
-    // redirect generates a response object which is returned by this action
-    return redirect("/");
-}*/
