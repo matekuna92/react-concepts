@@ -31,9 +31,12 @@ app.get("/posts/:id", async (req, res) => {
 app.post("/posts", async (req, res) => {
     const existingPosts = await getStoredPosts();
     const postData = req.body;
+
+    const maxId = existingPosts.reduce((max, post) => Math.max(max, post.id), 0);
+
     const newPost = {
         ...postData,
-        id: Math.random().toString(),
+        id: (maxId + 1).toString()
     };
     const updatedPosts = [newPost, ...existingPosts];
     await storePosts(updatedPosts);

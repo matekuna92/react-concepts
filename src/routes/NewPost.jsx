@@ -1,4 +1,4 @@
-import {Form, Link, redirect} from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import Modal from "../components/Modal";
 import classes from "./NewPost.module.css";
 
@@ -29,35 +29,36 @@ export default NewPost;
 
 // data is automatically passed by React Router, it is not the data of the form. It is an object, which has a request property
 export const action = async (data) => {
-    const formData = await data.request.formData();
-    const postData = Object.fromEntries(formData);
-    console.log("postData: ", postData);
+    try {
+        // Process the form data
+        const formData = await data.request.formData();
+        const postData = Object.fromEntries(formData);
 
-    const newData = {
-        id: Math.random(),
-        ...postData
-    }
+        // Send the POST request with the form data
+        const postResponse = await fetch("http://localhost:8080/posts", {
+            method: "POST",
+            body: JSON.stringify(postData),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
 
-    console.log("newData: ", newData);
-
-    const response = await fetch("http://localhost:8080/posts", {
-        method: "POST",
-        body: JSON.stringify(newData),
-        headers: {
-            "Content-Type": "application/json"
+        if (postResponse.ok) {
+            return redirect("/");
+        } else {
+            // Handle the case where the POST request fails
+            return {
+                error: "Failed to create post."
+            };
         }
-    });
-
-    if (response.ok) {
-        return redirect("/");
-    } else {
-        // if the response is not successful, return an error message
+    } catch (error) {
+        // Handle any other errors that might occur
+        console.error("Error:", error);
         return {
-            error: "Failed to create post."
+            error: "An unexpected error occurred."
         };
     }
-
-}
+};
 
 /*
 export const action = async (data) => {
