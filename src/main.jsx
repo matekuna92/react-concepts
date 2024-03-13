@@ -24,7 +24,7 @@ const router = createBrowserRouter([
                         action: newPostsAction,
                     },
                     { path: "/:id", element: <PostDetails/>, loader: postDetailsLoader },
-                    { path: "/login", element: <LoginForm/>, loader: userLoginAction }
+                    { path: "/login", element: <LoginForm/>, action: userLoginAction }
                 ],
             },
         ],

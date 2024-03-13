@@ -32,9 +32,9 @@ export const action = async (data) => {
 
         const response = await fetch("http://localhost:8080/users", {
             method: "POST",
-            body: userData,
+            body: JSON.stringify(userData),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "http://localhost:5173"
             }
         });
 

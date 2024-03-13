@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const { getStoredPosts, storePosts } = require("./data/posts");
+const { getRegisteredUsers, storeUsers } = require("./data/users");
 
 const app = express();
 
