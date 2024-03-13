@@ -43,4 +43,20 @@ app.post("/posts", async (req, res) => {
     res.status(201).json({ message: "Stored new post.", post: newPost });
 });
 
+app.post("/users", async (req, res) => {
+    const registeredUsers = await getRegisteredUsers();
+    const userData = req.body;
+
+    const maxUserId = registeredUsers.reduce((max, user) => Math.max(max, user.id), 0);
+
+    const newUser = {
+        ...userData,
+        id: (maxUserId + 1).toString()
+    };
+
+    const updatedUsers = [newUser, ...registeredUsers];
+    await storeUsers(updatedUsers);
+    res.status(201).json({ message: "Registered new user.", user: newUser });
+})
+
 app.listen(8080);

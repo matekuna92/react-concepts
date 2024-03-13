@@ -6,7 +6,7 @@ import NewPost, { action as newPostsAction } from "./routes/NewPost";
 import PostDetails, { loader as postDetailsLoader } from "./routes/PostDetails";
 import "./index.css";
 import RootLayout from "./routes/RootLayout";
-import LoginForm from "./routes/LoginForm.jsx";
+import LoginForm, { action as userLoginAction } from "./routes/LoginForm.jsx";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
                         action: newPostsAction,
                     },
                     { path: "/:id", element: <PostDetails/>, loader: postDetailsLoader },
-                    { path: "/login", element: <LoginForm/> }
+                    { path: "/login", element: <LoginForm/>, loader: userLoginAction }
                 ],
             },
         ],

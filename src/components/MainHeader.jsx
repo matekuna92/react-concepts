@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext.jsx";
 
 const MainHeader = ({ onAddPost }) => {
     const authContext = useContext(AuthContext);
-    const { isLoggedIn } = authContext;
+    const { isLoggedIn } = authContext || false;
 
     return (
         <>

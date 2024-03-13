@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import classes from "./NewPost.module.css";
 import Modal from "../components/Modal.jsx";
 
@@ -24,3 +24,33 @@ const LoginForm = () => {
 }
 
 export default LoginForm;
+
+export const action = async (data) => {
+    try {
+        const userData = await data.request.formData();
+        console.log('userData: ', Object.fromEntries(userData));
+
+        const response = await fetch("http://localhost:8080/users", {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        console.log("response: ", response);
+
+        if (response.ok) {
+            return redirect("/");
+        } else {
+            return {
+                error: "Failed to login"
+            }
+        }
+    } catch (error) {
+        console.log('error: ', error);
+        return {
+            error: "An unexpected error occurred."
+        };
+    }
+}
