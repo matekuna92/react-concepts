@@ -6,7 +6,12 @@ import { AuthContext } from "../context/AuthContext.jsx";
 
 const MainHeader = ({ onAddPost }) => {
     const authContext = useContext(AuthContext);
+    const dispatch = authContext.dispatch;
     const { isLoggedIn } = authContext || false;
+
+    const handleLogout = () => {
+        dispatch({ type: 'LOGOUT' });
+    }
 
     return (
         <>
@@ -14,6 +19,7 @@ const MainHeader = ({ onAddPost }) => {
                 <h1 className={classes.logo}>
                     <MdMessage/> React MainHeader
                 </h1>
+                {isLoggedIn && <Link to="/" className={classes.button} onClick={handleLogout}> Logout </Link>}
                 {isLoggedIn && <Link
                     to="/create-post"
                     className={classes.button}
