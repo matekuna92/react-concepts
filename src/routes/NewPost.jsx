@@ -1,8 +1,13 @@
 import { Form, Link, redirect } from "react-router-dom";
 import Modal from "../components/Modal";
 import classes from "./NewPost.module.css";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const NewPost = () => {
+    const authContext = useContext(AuthContext);
+    const loggedInUserName = authContext.user?.username;
+
     return (
         <Modal>
             <Form method="post" className={classes.form}>
@@ -12,7 +17,7 @@ const NewPost = () => {
                 </p>
                 <p>
                     <label htmlFor="author">Author</label>
-                    <input type="text" id="author" required name="author"/>
+                    <input type="text" id="author" required name="author" value={loggedInUserName || ''}/>
                 </p>
                 <p className={classes.actions}>
                     <button type="submit">Submit</button>
