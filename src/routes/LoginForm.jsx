@@ -1,14 +1,14 @@
 import { Form, redirect } from "react-router-dom";
 import classes from "./NewPost.module.css";
 import Modal from "../components/Modal.jsx";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
 
 const LoginForm = () => {
 
     const authContext = useContext(AuthContext);
-    const dispatch = authContext.dispatch;
-    // short form: const { dispatch } = useContext(AuthContext);
+    const dispatch = authContext.dispatch;  // short form: const { dispatch } = useContext(AuthContext);
+    const [modalIsVisible, setModalIsVisible] = useState(true);
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -18,13 +18,14 @@ const LoginForm = () => {
 
         try {
             dispatch({ type: 'LOGIN', payload: { username, password } });
+            setModalIsVisible(false);
         } catch (error) {
             console.error("Error occurred while logging in:", error);
         }
     }
 
     return (
-        <Modal>
+        modalIsVisible && (<Modal>
             <Form method="post" className={classes.form} onSubmit={handleLogin}>
                 <p>
                     <label htmlFor="username">Username</label>
@@ -39,7 +40,7 @@ const LoginForm = () => {
                 </p>
 
             </Form>
-        </Modal>
+        </Modal>)
     );
 }
 
